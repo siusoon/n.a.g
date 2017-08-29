@@ -1,7 +1,7 @@
 # net.art.generator ver5b
 http://nag.iap.de/
 
-![Image of n.a.g](https://github.com/siusoon/n.a.g/nag.png)
+![Image of n.a.g](https://github.com/siusoon/n.a.g/blob/master/nag.png)
 
 The net.art generator automatically produces net.art on demand.
 
