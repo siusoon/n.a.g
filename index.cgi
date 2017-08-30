@@ -17,7 +17,7 @@
 # NAG - Net.Art Generator (updated version as of 2017)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 17.08.2017
+# Last: 30.08.2017
 # Web: www.siusoon.net
 #
 # 1. fixed Google search API: request, retrieval, parsing of image search and error code checking
@@ -227,7 +227,7 @@ Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 		my $imfile = $name ."-". $query ."@". join(" ", @dt);
 		#$imfile =~ s/[^\w\d\@\-\:]/_/g;  #ver1: not support other language
 		$imfile =~ s/[^\W\w\d\@\-\:]/_/g; #ver2: support other lang
-		$imfile =~ s/[\?\s\,]/_/g; #can't have ?, space and comma in a file name
+		$imfile =~ s/[\?\s\,\']/_/g; #can't have ?, space,' and comma in a file name
 		$imfile =~ s/\:/\./g;
 
 		print &startPanel("Searching the Net for <em>$query</em> :: Powered by <a href='http://www.google.com/imghp'>Google</a>");
