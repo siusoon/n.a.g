@@ -7,15 +7,15 @@
 # License: GNU GPL (GNU General Public License. See LICENSE file) 
 #
 # Copyright (C) 2003 IAP GmbH 
-# Ingenieurbüro für Anwendungs-Programmierung
-# Mörkenstraße 9, D-22767 Hamburg
+# IngenieurbÃ¼ro fÃ¼r Anwendungs-Programmierung
+# MÃ¶rkenstraÃŸe 9, D-22767 Hamburg
 # Web: http://www.iap.de, Mail: info@iap.de 
 #--------------------------------------------------------------
 #--------------------------------------------------------------
 # NAG - Net.Art Generator (updated version: fixed Google search API + others)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 17.08.2017
+# Last: 11.12.2017
 # Web: www.siusoon.net
 #--------------------------------------------------------------
 #
@@ -77,7 +77,8 @@ sub getImgList
   my $query = shift;
   my $fileType = shift;
   my $imgSize ='xxlarge';
-  my $url = $api . "key=" . $key . "&cx=" . $cx . "&q=" . $query . "&searchType=" . $searchType . "&fileType=" . $fileType . "&imgSize="  . $imgSize;
+  my $safe = 'high';
+  my $url = $api . "key=" . $key . "&cx=" . $cx . "&q=" . $query . "&searchType=" . $searchType . "&fileType=" . $fileType . "&imgSize="  . $imgSize . "&safe="  . $safe;
 #----End of search criteria------
   my $ua = LWP::UserAgent->new; 
   my $request = HTTP::Request->new("GET" => $url);
