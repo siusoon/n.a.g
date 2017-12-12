@@ -1,4 +1,4 @@
-# net.art.generator ver5b
+# net.art-generator ver.5b
 http://nag.iap.de/
 
 ![Image of n.a.g](https://github.com/siusoon/n.a.g/blob/master/nag.png)
