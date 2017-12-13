@@ -12,4 +12,4 @@ The technical base of the net.art generator is a PERL script, running on apache 
 See the net.art generator main page: http://net.art-generator.com/
 
 
-C BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
