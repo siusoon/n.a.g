@@ -10,3 +10,6 @@ nag_05-this version of the net.art generator creates images. The resulting image
 The technical base of the net.art generator is a PERL script, running on apache and debian servers.
 
 See the net.art generator main page: http://net.art-generator.com/
+
+
+C BY 4.0 - https://creativecommons.org/licenses/by/4.0/
