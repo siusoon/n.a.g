@@ -5,7 +5,7 @@
 # Author: Panos Galanis <pg@iap.de>
 # Created: 16.04.2003
 # Last: 10.06.2003
-# License: GNU GPL (GNU General Public License. See LICENSE file) 
+# License: GNU GPL (GNU General Public License. See LICENSE file)
 #
 # Copyright (C) 2003 IAP GmbH 
 # Ingenieurbüro für Anwendungs-Programmierung
@@ -17,7 +17,7 @@
 # NAG - Net.Art Generator (updated version as of 2017)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 30.08.2017
+# Last: 9.09.2018
 # Web: www.siusoon.net
 #
 # 1. fixed Google search API: request, retrieval, parsing of image search and error code checking
@@ -26,6 +26,7 @@
 # 4. remove gif option as animation is not supported
 # 5. support other non-english language and characters such as German, Danish, Japanese and Chinese
 # 6. remove 1000 max width as tested with no different with the others
+# 7. change from http to https for security reasons as per iap suggestions
 #--------------------------------------------------------------
 
 use strict;
@@ -36,35 +37,35 @@ use Image::Magick;
 use POSIX;
 use HTTP::Request;
 
-use JSON;                 
+use JSON;
 use JSON::Parse;
-use warnings;  
+use warnings;
 use Encode;
 
 my $q = new CGI;
 my @ilinks;
 my @err;
-my $comment="<!-- 
-# NAG - Net.Art Generator                              
-#                                                      
-# Author : Panos Galanis info\@iap.de                    
-# Using : Perl v". sprintf("%vd", $^V) .", LWP::UserAgent v". $LWP::UserAgent::VERSION .", ImageMagick v". $Image::Magick::Q16::VERSION ." 
-#                                                      
+my $comment="<!--
+# NAG - Net.Art Generator
+#
+# Author : Panos Galanis info\@iap.de
+# Using : Perl v". sprintf("%vd", $^V) .", LWP::UserAgent v". $LWP::UserAgent::VERSION .", ImageMagick v". $Image::Magick::Q16::VERSION ."
+#
 # This is published under the GNU General Public License (GPL)
-# see http://www.opensource.org/licenses/gpl-license.php                          
+# see http://www.opensource.org/licenses/gpl-license.php
 
-# Ingenieurbüro für Anwendungs-Programmierung GmbH         
-# Mörkenstraße 9, D-22767 Hamburg                     
+# Ingenieurb¸ro f¸r Anwendungs-Programmierung GmbH         
+# Mˆrkenstraﬂe 9, D-22767 Hamburg                      
 # Web: http://www.iap.de, Mail: info\@iap.de
 -->
-<!-- 
+<!--
 # NAG - Net.Art Generator (updated version with Google API fixed + others)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 17.08.2017
+# Last: 11.12.2017
 # Using : JSON v". $JSON::VERSION .", JSON::Parse v". $JSON::Parse::VERSION ."
 #
-# Web: www.siusoon.net 
+# Web: www.siusoon.net
 -->
 ";
 
@@ -105,7 +106,7 @@ print &startPage(ucfirst($ac) ." ", $lang);
 #print &startPage("net.art generator : nag_05");
 print &startPanel("<b>.:: NAG :: Net.Art Generator</b>");
 my $pext;
-foreach ($q->param()) { 
+foreach ($q->param()) {
     $pext .= "\&$_=". $q->param($_) if ($_ ne "lang");
     }
 $pext .="&noclick=1" if ($single && !$noclick);
@@ -121,15 +122,15 @@ print &rowTabs(
 		);
 print &endPanel;
 
-if ($ac eq "home") {	
+if ($ac eq "home") {
 	print &startPanel("<b>Willkommen beim Netzkunstgenerator!</b>") if ($lang eq "de");
 	print &startPanel("<b>Welcome to NAG</b>") if ($lang eq "en");
 
 	print "<p>Der Netzkunstgenerator dient zur automatischen Produktion von Netzkunst auf Bestellung.</p>
 <p>Die vorliegende Version des Generators stellt Bilder her. Das neu entstehende Bild geht als eine Art Collage aus den im WWW gefundenen Bildern hervor, die nach der Eingabe Ihres 'Titles' von einer Suchmaschine angezeigt worden sind. Das Originalmaterial wird in 12-14 zufallsgesteuerten Schritten verarbeitet und neu kombiniert.</p>
-<p>Dieser Netzkunstgenerator wurde von Panos Galanis von der Firma IAP GmbH, Hamburg, in Zusammenarbeit mit Cornelia Sollfrank programmiert und war eine Auftragsarbeit der Volksfürsorge Kunstsammlung.</p>
-<p>Falls es bei der Handhabung Probleme geben sollte oder der Generator nicht funktioniert, wenden Sie sich bitte an: 
-IAP &lt;<a href=\"mailto:info\@iap.de?Subject=NAG::Mail\">info\@iap.de</a>&gt; 
+<p>Dieser Netzkunstgenerator wurde von Panos Galanis von der Firma IAP GmbH, Hamburg, in Zusammenarbeit mit Cornelia Sollfrank programmiert und war eine Auftragsarbeit der Volksf�rsorge Kunstsammlung.</p>
+<p>Falls es bei der Handhabung Probleme geben sollte oder der Generator nicht funktioniert, wenden Sie sich bitte an:
+IAP &lt;<a href=\"mailto:info\@iap.de?Subject=NAG::Mail\">info\@iap.de</a>&gt;
 oder Cornelia &lt;<a href=\"mailto:cornelia\@snafu.de?Subject=NAG::Mail\">cornelia\@snafu.de</a>&gt;</p>
 <p>Viel Spass beim Kunstmachen!</p>
 <p>Besuchen Sie auch <a href=\"http://net.art-generator.com\" TARGET=\"_blank\">net.art-generator.com</a> f&uuml;r mehr Informationen zu den Netzkunstgeneratoren.</p>
@@ -152,7 +153,7 @@ oder Cornelia &lt;<a href=\"mailto:cornelia\@snafu.de?Subject=NAG::Mail\">cornel
 	print "<img src='./img/gen_shot_03_small.gif' class='ipreview' alt='Screenshot' /> </p>\n";
 	print &endPanel;
 	}
-if ($ac eq "display") {	
+if ($ac eq "display") {
 	#push(@err, "Warn :: Generator parameters require <b>Query</b> input !!") if ($max && !$query && !$picas) ;
 	print &startPanel("Display Generated Pictures") if ($lang eq "en");
 	print &startPanel("Bilder-Archiv anschauen") if ($lang eq "de");
@@ -172,14 +173,14 @@ if ($ac eq "display") {
 	#print "<p align='center'>\n";
 	if ($picas) {
 		my @tmp;
-		foreach (@glist) { 
+		foreach (@glist) {
 			push(@tmp, $_) if (m/$picas/i);}
 		@glist=@tmp;
 		}
 	$picmax=(@glist < 20)? @glist : 20;
 	my @rfiles = &randImgList($picmax, @glist);
 	my ($mt,$ctd,$myf)=(0,0,"");
-	foreach $myf (@rfiles) { 
+	foreach $myf (@rfiles) {
 		if (!-e "./thumb/$myf"){
 			push(@err, &makeThumb(120, $myf));
 			$mt++;
@@ -188,7 +189,7 @@ if ($ac eq "display") {
 		if (!$ctd) { $ctd++; print "\n<table width='100%'>\n<tr>"; }
 		if ($ctd > 4 ) { $ctd=1; print "</tr>\n<tr>"; }
 		print "<td align='center' class='small'>";
-		print "<a href=\"?ac=single&lang=$lang&file=$myf\"><img src=\"./thumb/$myf\" title='$myf' vspace='10' hspace='10' class='ipreview' alt='$myf'/></a>\n"; 
+		print "<a href=\"?ac=single&lang=$lang&file=$myf\"><img src=\"./thumb/$myf\" title='$myf' vspace='10' hspace='10' class='ipreview' alt='$myf'/></a>\n";
 		my ($ti,$da)=split(m/\@/, $myf);
 		my @d=split(m/_+/, $da);
 		print "<br />$ti <br />\@ $d[0] $d[1] $d[2]";
@@ -201,7 +202,7 @@ if ($ac eq "display") {
 	print "<small>Display ". @rfiles ." Thumbs :: $mt Updates.</small>\n";
 	}
 
-elsif ($ac eq "create") { 
+elsif ($ac eq "create") {
 	print &startPanel("Info");
 
 	print "The generation of your piece of net.art takes 1-2 minutes. Please have a
@@ -209,8 +210,8 @@ little patience. If nothing has happenend after 2 minutes, please click
 the 'stop'-button and try again.
 " if ($lang eq "en");
 
-	print "Die Erzeugung Ihres net.art-Bildes benötigt ein bis zwei Minuten. Bitte
-haben Sie etwas Geduld. Wenn nach zwei Minuten noch nichts passiert ist, dann drücken
+	print "Die Erzeugung Ihres net.art-Bildes ben�tigt ein bis zwei Minuten. Bitte
+haben Sie etwas Geduld. Wenn nach zwei Minuten noch nichts passiert ist, dann dr�cken
 Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 " if ($lang eq "de");
 
@@ -219,7 +220,7 @@ Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 	print &startPanel(($lang eq "en")?"Query":"Abfrage");
 	print &inputForm($name,$query,$max,$ext,$comp);
 	print &endPanel;
-	
+
 	#if ($name && $query && $query =~ /[\w\s]+/i) {	#ver1
 	if ($name && $query && $query =~ /[.*]*/i) {   #ver2: support other lang query
 		my @dt=split(" ", localtime(time));
@@ -228,16 +229,16 @@ Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 		#$imfile =~ s/[^\w\d\@\-\:]/_/g;  #ver1: not support other language
 		$imfile =~ s/[^\W\w\d\@\-\:]/_/g; #ver2: support other lang
 		#$imfile =~ s/[\?\s\,\']/_/g; #can't have ?, space,' and comma in a file name
-		$imfile =~ s/[\?\s\≈\∞\≤\Ω\,\']/_/g; #can't have ?, space,' and comma in a file name
+    $imfile =~ s/[\?\s\≈\∞\≤\Ω\,\']/_/g; #can't have ?, space,' and comma in a file name
 		$imfile =~ s/\:/\./g;
 
-		print &startPanel("Searching the Net for <em>$query</em> :: Powered by <a href='http://www.google.com/imghp'>Google</a>");
+		print &startPanel("Searching the Net for <em>$query</em> :: Powered by <a href='https://www.google.com/imghp'>Google</a>");
 		my @ilist=&getImgList($query, $ext);
 		if (!@ilist) {
 			push(@err,"Query [$query] returned no Images! Please try again.");
 			print "<center>Generator process canceled!</center>\n";
 			print &endPanel;
-		}else{		
+		}else{
 			if ($ilist[0] eq "dailyLimitExceeded"){  #dailyLimitExceeded - msg by Google
 		    	push(@err,"<p>Thanks for using nag_05! Unfortunately, it seems as if the limit of queries for today is already exceeded! </p>
 <p>Due to current Google policies, access to search results is very limited for non-paying customers like this wonderful net.art project (100 requests
@@ -250,8 +251,8 @@ of _nag, you can flattr us! </p>
 support art on the Internet in a meaningful way, but there is still a long
 way to go ;-) </p>");
 		    	print "<center>Generator process canceled!</center>\n";
-				print &endPanel;	
-			}else{ 
+				print &endPanel;
+			}else{
 				my @mylist=&randImgList($comp,@ilist);
 				print "Choosing  : ". @mylist . " / ". @ilist ."<br />\n";
 				print "<ul>\n" if @mylist;
@@ -259,20 +260,20 @@ way to go ;-) </p>");
 				print "</ul>\n" if @mylist;
 				print &endPanel;
 				print &startPanel("Generator Usage");
-				my @localist=&grabImg(@mylist);			
+				my @localist=&grabImg(@mylist);
 				my $cached=shift(@localist);
 				print "<p>Composition ". @localist . " :: New ". (@localist - $cached) ." :: Cached $cached";
 				print &endPanel;
 				print &startPanel("Show");
 				my $base=shift(@localist);
-				push(@err, &genImg($imfile, $max, $max, $ext, $base, @localist));		
+				push(@err, &genImg($imfile, $max, $max, $ext, $base, @localist));
 				push(@err, &makeThumb(120, "$imfile.$ext"));
 				print "<center><img src='./gen/$imfile.$ext' title='$imfile' class='ipreview' /><br /><b>$imfile</b></center>";
 				print &endPanel;
 				my $res=&clearOldies;
-				print "<small>Cleaner :: $res </small>";			
+				print "<small>Cleaner :: $res </small>";
 			}
-		}	
+		}
 	}else{
 		push(@err,"No Artist ??") if (!$name);
 		push(@err,"Query [$query] not accepted!") if ($query && $query !~ /[\w\s]+/i);
@@ -281,11 +282,11 @@ way to go ;-) </p>");
 
 #------Soon's modification end-------
 
-elsif ($ac eq "single") { 
+elsif ($ac eq "single") {
 	if (-e "./gen/$single") {
 		my ($c, $f, $l);
 		($c, $f, $l)=(&isLast || $noclick)? &getStat($single):&clickStat($single);
-		print &startPanel("Display Single File :: <b>$c</b> click(s) :: <b>". localtime($l) . "</b> last one"); 
+		print &startPanel("Display Single File :: <b>$c</b> click(s) :: <b>". localtime($l) . "</b> last one");
 		print "<center><img src='./gen/$single' border='0' class='ipreview' /><br /><a href='./gen/$single'>$single</a></center>";
 		print &endPanel;
 		}else{
@@ -293,7 +294,7 @@ elsif ($ac eq "single") {
 		}
 	}
 
-elsif ($ac eq "TOP10") { 
+elsif ($ac eq "TOP10") {
 		my ($size,@clist)=&getDirInfo("./grab/");
 		$size = ($size > 1024*1024)? sprintf("%.2f Mb", $size/(1024*1024)) : sprintf("%.2f kb", $size/1024);
 		my ($gsize,@glist)=&getDirInfo("./gen/");
@@ -336,9 +337,9 @@ elsif ($ac eq "TOP10") {
 			my ($ti,$da)=split(m/\@/, @$last[0]);
 			my @d=split(m/_+/, $da);
 			print "<td align='center' class='small'>";
-			print "<a href='?ac=single&file=@$last[0]'><img src='./thumb/@$last[0]' title='@$last[0]' vspace='10' hspace='10' class='ipreview' /></a>\n";  
-			#print "<br />$ti <br />\@ $d[0] $d[1] $d[2]"; 
-			@$last[0] =~ s/\D{4}$//; 
+			print "<a href='?ac=single&file=@$last[0]'><img src='./thumb/@$last[0]' title='@$last[0]' vspace='10' hspace='10' class='ipreview' /></a>\n";
+			#print "<br />$ti <br />\@ $d[0] $d[1] $d[2]";
+			@$last[0] =~ s/\D{4}$//;
 			print "<br/>@$last[0]<br />";
 			print "</td>";
 			if ($cl >= 4) {	print "</tr>\n"; $cl=0; }else{ $cl++; }
@@ -360,4 +361,3 @@ if (@err) {
 print &endPage();
 
 exit;
-	
