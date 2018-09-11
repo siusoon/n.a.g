@@ -27,6 +27,7 @@
 # 5. support other non-english language and characters such as German, Danish, Japanese and Chinese
 # 6. remove 1000 max width as tested with no different with the others
 # 7. change from http to https for security reasons as per iap suggestions
+# 8. update the error message for the daily limit of google queries
 #--------------------------------------------------------------
 
 use strict;
@@ -240,16 +241,11 @@ Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 			print &endPanel;
 		}else{
 			if ($ilist[0] eq "dailyLimitExceeded"){  #dailyLimitExceeded - msg by Google
-		    	push(@err,"<p>Thanks for using nag_05! Unfortunately, it seems as if the limit of queries for today is already exceeded! </p>
-<p>Due to current Google policies, access to search results is very limited for non-paying customers like this wonderful net.art project (100 requests
-per day)!</p>
-<p>We do our best to keep the _nag alive, but there is no funding to pay for
-Google, so please be patient and come back tomorrow. </p>
-<p>If you would like to support the ongoing development and search requests
-of _nag, you can flattr us! </p>
-<p>In the long run, we are working on teaching Google about how they can
-support art on the Internet in a meaningful way, but there is still a long
-way to go ;-) </p>");
+		    	push(@err,"<p>Thanks for using nag_05! Unfortunately, it seems as if the limit of queries has already been exceeded! </p>
+<p>For our search we rely on the results of Google image search. Currently, there is a limitation of 100 requests per day as set by Google for non-paying customers like our net.art project. </p>
+<p>We do our best to keep the nag_ alive. However, there is no funding to pay for Google and there is no guarantee with the service due to the ever-changing terms, conditions and policies of Google. </p>
+<p>In the long run, we are working on teaching Google about how they can support art on the Internet in a meaningful way, but there is a long way to go;-) </p>
+<p>For now, be patient and come back tomorrow! </p>");
 		    	print "<center>Generator process canceled!</center>\n";
 				print &endPanel;
 			}else{
