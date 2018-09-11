@@ -7,8 +7,8 @@
 # License: GNU GPL (GNU General Public License. See LICENSE file)
 #
 # Copyright (C) 2003 IAP GmbH
-# IngenieurbŸro fŸr Anwendungs-Programmierung
-# Mšrkenstra§e 9, D-22767 Hamburg
+# IngenieurbÃ¼ro fÃ¼r Anwendungs-Programmierung
+# MÃ¶rkenstraÃŸe 9, D-22767 Hamburg
 # Web: http://www.iap.de, Mail: info@iap.de 
 #--------------------------------------------------------------
 #
@@ -40,14 +40,14 @@ sub clickStat {
 	open(FH, ">$fstat") || die "I can't Open ~$fstat :$!\n";
 	foreach (@list) {
 		$_ =~ s/[\r\n]//g;
-		($r,$c,$f,$l) = split(m/°/, $_);
+		($r,$c,$f,$l) = split(m/âˆž/, $_);
 		if ($rec eq $r) {
 			$found=1;
 			$c++;
 			$fr=$r; $fc=$c; $ff=$f; $fl=time;
-			print FH "$fr°$fc°$ff°$fl\n";
+			print FH "$frâˆž$fcâˆž$ffâˆž$fl\n";
 			} else {
-			print FH "$r°$c°$f°$l\n";
+			print FH "$râˆž$câˆž$fâˆž$l\n";
 			}
 		}
 	if (!$found) {
@@ -55,12 +55,12 @@ sub clickStat {
 		$c=1;
 		$f=$l=time;
 		$fr=$r; $fc=$c; $ff=$f; $fl=time;
-		print FH "$r°$c°$f°$l\n";
+		print FH "$râˆž$câˆž$fâˆž$l\n";
 		}
 	close(FH);
     #move("$fstat.back","$fstat") == 1 or die "Error::While moving : $!";
 	open(FH, ">$flast") || die "I can't Open $flast :$!\n";
-	print FH "$ENV{'REMOTE_ADDR'}°$ENV{'HTTP_REFERER'}°$ENV{'REQUEST_URI'}";
+	print FH "$ENV{'REMOTE_ADDR'}âˆž$ENV{'HTTP_REFERER'}âˆž$ENV{'REQUEST_URI'}";
 	close(FH);
     #print "[DBG::ClickStat::($c,$f,$l)]";
 	return ($fc,$ff,$fl);
@@ -75,7 +75,7 @@ sub getStat {
 	open(FH, "$fstat") || die "I can't Open $fstat :$!\n";
 	while (<FH>) {
 		$_ =~ s/[\r\n]//g;
-		my ($r,$c,$f,$l) = split(m/°/, $_);
+		my ($r,$c,$f,$l) = split(m/âˆž/, $_);
 		if ($rec eq $r) {
 			close(FH);
 			return ($c,$f,$l);
@@ -92,7 +92,7 @@ sub getStatTop {
 	open(FH, "$fstat") || die "I can't Open $fstat :$!\n";
 	while (<FH>) {
 		chop if (m/\n/);
-		my ($r,$c,$f,$l) = split(m/°/, $_);
+		my ($r,$c,$f,$l) = split(m/âˆž/, $_);
 		push(@REC, [$r,$c,$f,$l]);
 		}
 	close(FH);
@@ -128,7 +128,7 @@ sub getLast {
 	}
 
 sub isLast {
-	my $rec="$ENV{'REMOTE_ADDR'}°$ENV{'HTTP_REFERER'}°$ENV{'REQUEST_URI'}";
+	my $rec="$ENV{'REMOTE_ADDR'}âˆž$ENV{'HTTP_REFERER'}âˆž$ENV{'REQUEST_URI'}";
 	return -1 if (!-e "$flast");
 	open(FH, "$flast") || die "I can't Open $flast :$!\n";
 	@lines=<FH>;
@@ -148,7 +148,7 @@ sub clearOldies {
 	open(FH, "$fstat") || die "I can't Open $fstat :$!\n";
 	while (<FH>) {
 		$_ =~ s/[\r\n]//g;
-		my ($r,$c,$f,$l) = split(m/°/, $_);
+		my ($r,$c,$f,$l) = split(m/âˆž/, $_);
 		push(@STAT, [$r,$c,$f,$l]);
 		}
 	close(FH);
@@ -183,7 +183,7 @@ sub clearOldies {
 	# Save Click sorted list...
 	open(FH, ">$fstat") || die "I can't Open $fstat :$!\n";
 	foreach (reverse @STAT) {
-	    print FH "@$_[0]°@$_[1]°@$_[2]°@$_[3]\n" if @$_[0];
+	    print FH "@$_[0]âˆž@$_[1]âˆž@$_[2]âˆž@$_[3]\n" if @$_[0];
 	    }
 	close(FH);
 
