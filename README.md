@@ -11,6 +11,6 @@ The technical base of the net.art generator is a PERL script, running on apache 
 
 See the net.art generator main page: http://net.art-generator.com/
 
-note: Currently, the encoding format is Unix (LF), Western (Mac OS Roman) for stat.pl and utf-8 for index.cgi
+note: Currently, the encoding format is utf-8 for index.cgi
 
 CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
