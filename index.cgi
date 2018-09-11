@@ -17,7 +17,7 @@
 # NAG - Net.Art Generator (updated version as of 2017)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 9.09.2018
+# Last: 11.09.2018
 # Web: www.siusoon.net
 #
 # 1. fixed Google search API: request, retrieval, parsing of image search and error code checking
@@ -54,8 +54,8 @@ my $comment="<!--
 # This is published under the GNU General Public License (GPL)
 # see http://www.opensource.org/licenses/gpl-license.php
 
-# Ingenieurb¸ro f¸r Anwendungs-Programmierung GmbH         
-# Mˆrkenstraﬂe 9, D-22767 Hamburg                      
+# Ingenieurbüro für Anwendungs-Programmierung GmbH         
+# Mörkenstraße 9, D-22767 Hamburg                      
 # Web: http://www.iap.de, Mail: info\@iap.de
 -->
 <!--
@@ -128,7 +128,7 @@ if ($ac eq "home") {
 
 	print "<p>Der Netzkunstgenerator dient zur automatischen Produktion von Netzkunst auf Bestellung.</p>
 <p>Die vorliegende Version des Generators stellt Bilder her. Das neu entstehende Bild geht als eine Art Collage aus den im WWW gefundenen Bildern hervor, die nach der Eingabe Ihres 'Titles' von einer Suchmaschine angezeigt worden sind. Das Originalmaterial wird in 12-14 zufallsgesteuerten Schritten verarbeitet und neu kombiniert.</p>
-<p>Dieser Netzkunstgenerator wurde von Panos Galanis von der Firma IAP GmbH, Hamburg, in Zusammenarbeit mit Cornelia Sollfrank programmiert und war eine Auftragsarbeit der Volksf�rsorge Kunstsammlung.</p>
+<p>Dieser Netzkunstgenerator wurde von Panos Galanis von der Firma IAP GmbH, Hamburg, in Zusammenarbeit mit Cornelia Sollfrank programmiert und war eine Auftragsarbeit der Volksfürsorge Kunstsammlung.</p>
 <p>Falls es bei der Handhabung Probleme geben sollte oder der Generator nicht funktioniert, wenden Sie sich bitte an:
 IAP &lt;<a href=\"mailto:info\@iap.de?Subject=NAG::Mail\">info\@iap.de</a>&gt;
 oder Cornelia &lt;<a href=\"mailto:cornelia\@snafu.de?Subject=NAG::Mail\">cornelia\@snafu.de</a>&gt;</p>
@@ -210,8 +210,8 @@ little patience. If nothing has happenend after 2 minutes, please click
 the 'stop'-button and try again.
 " if ($lang eq "en");
 
-	print "Die Erzeugung Ihres net.art-Bildes ben�tigt ein bis zwei Minuten. Bitte
-haben Sie etwas Geduld. Wenn nach zwei Minuten noch nichts passiert ist, dann dr�cken
+	print "Die Erzeugung Ihres net.art-Bildes benötigt ein bis zwei Minuten. Bitte
+haben Sie etwas Geduld. Wenn nach zwei Minuten noch nichts passiert ist, dann drücken
 Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 " if ($lang eq "de");
 
@@ -229,7 +229,7 @@ Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 		#$imfile =~ s/[^\w\d\@\-\:]/_/g;  #ver1: not support other language
 		$imfile =~ s/[^\W\w\d\@\-\:]/_/g; #ver2: support other lang
 		#$imfile =~ s/[\?\s\,\']/_/g; #can't have ?, space,' and comma in a file name
-    $imfile =~ s/[\?\s\≈\∞\≤\Ω\,\']/_/g; #can't have ?, space,' and comma in a file name
+    	$imfile =~ s/[\?\s\≈\∞\≤\Ω\,\']/_/g; #can't have ?, space,' and comma in a file name
 		$imfile =~ s/\:/\./g;
 
 		print &startPanel("Searching the Net for <em>$query</em> :: Powered by <a href='https://www.google.com/imghp'>Google</a>");
