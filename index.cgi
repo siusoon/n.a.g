@@ -39,7 +39,6 @@ use POSIX;
 use HTTP::Request;
 
 use JSON;
-use JSON::Parse;
 use warnings;
 use Encode;
 
