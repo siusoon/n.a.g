@@ -17,7 +17,7 @@
 # NAG - Net.Art Generator (updated version as of 2017)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 11.09.2018
+# Last: 17.07.2019
 # Web: www.siusoon.net
 #
 # 1. fixed Google search API: request, retrieval, parsing of image search and error code checking
@@ -28,6 +28,7 @@
 # 6. remove 1000 max width as tested with no different with the others
 # 7. change from http to https for security reasons as per iap suggestions
 # 8. update the error message for the daily limit of google queries
+# 9. Update for the removal of JSON: PARSE due to server upgrade in iap
 #--------------------------------------------------------------
 
 use strict;
@@ -39,6 +40,7 @@ use POSIX;
 use HTTP::Request;
 
 use JSON;
+# use JSON::Parse;
 use warnings;
 use Encode;
 
@@ -62,8 +64,8 @@ my $comment="<!--
 # NAG - Net.Art Generator (updated version with Google API fixed + others)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 11.12.2017
-# Using : JSON v". $JSON::VERSION .", JSON::Parse v". $JSON::Parse::VERSION ."
+# Last: 17.07.2019
+# Using : JSON v". $JSON::VERSION ."
 #
 # Web: www.siusoon.net
 -->
