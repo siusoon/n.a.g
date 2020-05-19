@@ -4,18 +4,18 @@
 # Author: Panos Galanis <pg@iap.de>
 # Created: 16.04.2003
 # Last: 10.06.2003
-# License: GNU GPL (GNU General Public License. See LICENSE file) 
+# License: GNU GPL (GNU General Public License. See LICENSE file)
 #
-# Copyright (C) 2003 IAP GmbH 
+# Copyright (C) 2003 IAP GmbH
 # Ingenieurbüro für Anwendungs-Programmierung
 # Mörkenstraße 9, D-22767 Hamburg
-# Web: http://www.iap.de, Mail: info@iap.de 
+# Web: http://www.iap.de, Mail: info@iap.de
 #--------------------------------------------------------------
 #--------------------------------------------------------------
 # NAG - Net.Art Generator (updated version: fixed Google search API + others)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 11.12.2017
+# Last: 19.05.2020
 # Web: www.siusoon.net
 #--------------------------------------------------------------
 #
@@ -58,7 +58,7 @@ sub doLog
     #return $ua->request($req)->as_string;
 #    my $searchterm="@_";
 #    my $query="https://www.google.com/search?hl=en&output=search&safe=active&tbm=isch&q=". $searchterm;
-#    my $query="https://www.google.com/search?safe=active&tbm=isch&source=hp&q=". $searchterm;    
+#    my $query="https://www.google.com/search?safe=active&tbm=isch&source=hp&q=". $searchterm;
 #    return getURL($query);
 #}
 #------------------------------------
@@ -67,7 +67,7 @@ sub doLog
 #---new Google API--------------------
 sub getImgList
 {
-  
+
 #----search criteria------
   #my $url = "https://www.googleapis.com/customsearch/v1?key=YOURKEY&cx=YOURSEARCHENGINEID&q=NET+ART+GENERATOR&searchType=image&fileType=jpg&imgSize=xxlarge";
   my $api = "https://www.googleapis.com/customsearch/v1?";
@@ -80,22 +80,23 @@ sub getImgList
   my $safe = 'high';
   my $url = $api . "key=" . $key . "&cx=" . $cx . "&q=" . $query . "&searchType=" . $searchType . "&fileType=" . $fileType . "&imgSize="  . $imgSize . "&safe="  . $safe;
 #----End of search criteria------
-  my $ua = LWP::UserAgent->new; 
+  my $ua = LWP::UserAgent->new;
   my $request = HTTP::Request->new("GET" => $url);
   my $response = $ua->request($request);
   my @ilinks=();
   my $message = $response->decoded_content;
   my $returned_query = decode_json($message); #
-  
+
   if ($response->is_success) {
-	my $extract1 = $returned_query->{items};	
+	my $extract1 = $returned_query->{items};
     for my $pick (@$extract1) {
        push(@ilinks, "$pick->{link}");
-	}		         
+	}
   }else{	#unsuccessful query with error code checking
  	my $extract2 = $returned_query->{error}->{errors}->[0]->{reason};
  	my $extract3 = $returned_query->{error}->{code};
-  	push(@ilinks,"$extract2") if (($extract2 eq "dailyLimitExceeded") && ($extract3 == 403)); #dailyLimitExceeded and error code 403 - msg by Google	 
+  	push(@ilinks,"$extract2") if (($extract2 eq "dailyLimitExceeded") && ($extract3 == 403)); #dailyLimitExceeded and error code 403 - msg by Google
+    push(@ilinks,"$extract2") if (($extract2 eq "rateLimitExceeded") && ($extract3 == 429)); #rateLimitExceeded and error code 429 - msg by Google
   }
   return @ilinks; #@ilinks will be either blank (other kinds of unknown error), or with links (valid query), or error msg by Google
 }
@@ -113,22 +114,22 @@ doLog("\n\nGrabbing images");
         my $chk=0;
         my $chkd=0;
         $file =~ s/[^\w\d\.]/_/g;
-        my $saved_path = "./grab/" . $file;         
+        my $saved_path = "./grab/" . $file;
         if (!-e ">$saved_path" || $chkd) {
 doLog("Grabbing file");
             #print "Getting <b>$_</b> saving as <em>$file</em><br>\n";
             my $req = HTTP::Request->new(GET => "$_");
-            my $pic = $ua->request($req);  
+            my $pic = $ua->request($req);
 doLog("Headers: ".$pic->headers->as_string);
             $chk=($pic->headers->as_string =~ m/content-type: image\//i);
-            if ($chk) 
+            if ($chk)
             {
-doLog("Saving file");    
+doLog("Saving file");
                 open(FH, ">$saved_path") || die "Cant Open $saved_path :$!\n";
                 #binmode FH;  # for MSDOS derivations.
                 print FH $pic->content;
                 close(FH);
-doLog("Saving done");    
+doLog("Saving done");
             }
         }else{
 doLog("File in cache??");
@@ -141,4 +142,3 @@ doLog("File in cache??");
 }
 
 1;
-
