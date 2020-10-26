@@ -1,0 +1,76 @@
+/* Style for Page Body *********************************** */
+/* File: nkg.css, Last: 26.Mai.2003       **************** */
+
+a { 
+  font-weight: bold; 
+  }  
+a:link { color: #f20; }
+a:visited { color: #c00; }
+a:hover { 
+  color: #fff; 
+  background: #333;
+  }
+  
+a,td,th,p,div,body{
+  font-family: Verdana;
+  font-size: 11px;
+  color : #333;
+  text-decoration: none;
+  }
+
+body {   
+  background: #ccc; 
+  }
+
+body,form {
+  margin-top:0pt;
+  margin-left:0pt;
+  margin-right:0pt;
+  margin-bottom:0pt;
+  }
+
+h3,h4 {
+  color: #fff;
+  background: #f61;
+  font-weight: bold; 
+  padding: 4px 4px 4px 4px;
+  }
+
+li,ol { padding: 2px 2px 2px 2px;}
+
+td {
+  padding: 2px 2px 2px 2px;
+  }
+
+select,input {
+  background-color: #fed; 
+  font-size: 9px;
+  }
+
+.panel {
+  background-color: #fff;
+  border: 1px solid #000;
+  margin: 2px 2px 2px 2px;
+  }
+
+ .ipreview{
+  background-color: #ddd;
+  border: 1px dashed #555;
+  /*padding: 10px 10px 10px 10px;*/
+  margin: 6px 6px 6px 6px;
+  }
+
+.toplink a {  padding: 0px 2px 10px 2px; }
+
+.comment {
+  color: #bbb;
+  font-size: 10px; 
+  }
+
+.small { 
+  font-size: 9px; 
+  }
+
+.max { 
+  width: 100% ; 
+  }
