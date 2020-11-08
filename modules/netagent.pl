@@ -24,8 +24,8 @@
 
 sub doLog
 {
-    open(FLOG,">>/tmp/jclog.log");
-    print FLOG "@_\n";
+    open(FLOG,">>/tmp/nag_netagent.log");
+    print FLOG "@_";
     close(FLOG);
 }
 
@@ -104,7 +104,6 @@ sub getImgList
 
 sub grabImg {
 
-doLog("\n\nGrabbing images");
     my @list=();
     my $no=0;
     my $ua = LWP::UserAgent->new;
@@ -115,24 +114,25 @@ doLog("\n\nGrabbing images");
         my $chkd=0;
         $file =~ s/[^\w\d\.]/_/g;
         my $saved_path = "./grab/" . $file;
+        doLog("File is: ".$_."\n");
         if (!-e ">$saved_path" || $chkd) {
-doLog("Grabbing file");
+            doLog("Grabbing file\n");
             #print "Getting <b>$_</b> saving as <em>$file</em><br>\n";
             my $req = HTTP::Request->new(GET => "$_");
             my $pic = $ua->request($req);
-doLog("Headers: ".$pic->headers->as_string);
+            doLog("Headers: ".$pic->headers->as_string);
             $chk=($pic->headers->as_string =~ m/content-type: image\//i);
             if ($chk)
             {
-doLog("Saving file");
+                doLog("Saving file\n");
                 open(FH, ">$saved_path") || die "Cant Open $saved_path :$!\n";
                 #binmode FH;  # for MSDOS derivations.
                 print FH $pic->content;
                 close(FH);
-doLog("Saving done");
+                doLog("Saving done\n");
             }
         }else{
-doLog("File in cache??");
+            doLog("File cached already\n");
             $chk=1;
             $no++;
         }
