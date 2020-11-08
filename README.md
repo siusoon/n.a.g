@@ -12,7 +12,7 @@ v6.9.10.23+dfsg-2.1+deb10u1 (as of Oct 2020) and libimage-magick-q16-perl for th
 
 See the net.art generator main page: http://net.art-generator.com/
 
-note: Currently, the encoding format is utf-8 for index.cgi. There is also nag_extensions, which is developed and maintained by Gerrit Boelz, displaying a collection of the generated images as thumbnails in a grid and allowing to click on them to open a more detailed view of the image. See here for more info: https://lab.madbox.synology.me/nag_extensions/gallery
+note: Currently, the encoding format is utf-8 for index.cgi. There is also nag_extensions, which is developed and maintained by Gerrit Boelz, displaying a collection of the generated images as thumbnails in a grid and allowing to click on them to open a more detailed view of the image. See here for more info: https://lab.lostb.one/nag_extensions/gallery
 
 CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
 
