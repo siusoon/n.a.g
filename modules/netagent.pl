@@ -7,16 +7,18 @@
 # License: GNU GPL (GNU General Public License. See LICENSE file)
 #
 # Copyright (C) 2003 IAP GmbH
-# Ingenieurbüro für Anwendungs-Programmierung
-# Mörkenstraße 9, D-22767 Hamburg
+# Ingenieurb�ro f�r Anwendungs-Programmierung
+# M�rkenstra�e 9, D-22767 Hamburg
 # Web: http://www.iap.de, Mail: info@iap.de
 #--------------------------------------------------------------
 #--------------------------------------------------------------
 # NAG - Net.Art Generator (updated version: fixed Google search API + others)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 19.05.2020
+# Last: 12.11.2020
 # Web: www.siusoon.net
+# 1. update temp log (as per iap request) 
+# 2. fixed long URL from Google image search (in netagent.pl), and keep it within 255 characters for the file name
 #--------------------------------------------------------------
 #
 # Netagent.pl
@@ -24,7 +26,7 @@
 
 sub doLog
 {
-    open(FLOG,">>/tmp/nag_netagent.log");
+    open(FLOG, ">>", "/tmp/nag_netagent.log");
     print FLOG "@_";
     close(FLOG);
 }
@@ -113,6 +115,8 @@ sub grabImg {
         my $chk=0;
         my $chkd=0;
         $file =~ s/[^\w\d\.]/_/g;
+        # new fix (5b) for log item 11
+        $file = substr($file, 0, 250) . substr($file, -4) if (length( $file ) > 255);
         my $saved_path = "./grab/" . $file;
         doLog("File is: ".$_."\n");
         if (!-e ">$saved_path" || $chkd) {
