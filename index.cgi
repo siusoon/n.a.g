@@ -17,7 +17,7 @@
 # NAG - Net.Art Generator (updated version as of 2017)
 #
 # Co-Author: Winnie Soon <rwx[at]siusoon.net>
-# Last: 19.05.2020
+# Last: 12.11.2020
 # Web: www.siusoon.net
 #
 # 1. fixed Google search API: request, retrieval, parsing of image search and error code checking
@@ -30,6 +30,7 @@
 # 8. update the error message for the daily limit of google queries
 # 9. Update for the removal of JSON: PARSE due to server upgrade in iap
 #10. add error code 429 - rateLimitExceeded (new error code by Google)
+#11. fixed long URL from Google image search (in netagent.pl), and keep it within 255 characters for the file name
 #--------------------------------------------------------------
 
 use strict;
@@ -242,7 +243,7 @@ Sie den Stop-Knopf und versuchen Sie es noch ein mal.
 			print "<center>Generator process canceled!</center>\n";
 			print &endPanel;
 		}else{
-			if ($ilist[0] eq "dailyLimitExceeded" || $ilist[0] eq "rateLimitExceeded"){  #dailyLimitExceeded/#rateLimitExceeded - msg by Google
+      if ($ilist[0] eq "dailyLimitExceeded" || $ilist[0] eq "rateLimitExceeded"){  #dailyLimitExceeded/#rateLimitExceeded - msg by Google
 		    	push(@err,"<p>Thanks for using nag_05! Unfortunately, it seems as if the limit of queries has already been exceeded! </p>
 <p>For our search we rely on the results of Google image search. Currently, there is a limitation of 100 requests per day as set by Google for non-paying customers like our net.art project. </p>
 <p>We do our best to keep the nag_ alive. However, there is no funding to pay for Google and there is no guarantee with the service due to the ever-changing terms, conditions and policies of Google. </p>
