@@ -1,5 +1,13 @@
 ![](anonymous-warhol_flowers%40Oct_24_09.00.07_2021.jpg)
 
+```
+#!/bin/bash
+site="https://nag.iap.de/";
+request=$(curl -d "ac=create&query=warhol+flowers&comp=4&width=800&ext=jpg" -X POST ${site});
+image=$(grep -E -o 'gen/anonymous-warhol_flowers.+\.jpg' <<< {$request});
+wget $site$image;
+```
+
 nag_Bash is written in a Bash script, developed in 1989, which is a piece of free software with the type of Unix Shell for GNU platforms. The shell script nag_Bash.sh is a plain text file that contains a series of command.
 
 - 1st line: `#!` is often referred to as “hashbang” or “shebang”. It points to the specific path of the shell program (Bash interpreter) to execute the bash script.
