@@ -16,7 +16,7 @@ note: Currently, the encoding format is utf-8 for index.cgi.
 
 Other related nag projects:
 - nag_extensions: This is developed and maintained by Gerrit Boelz, displaying a collection of the generated images as thumbnails in a grid and allowing to click on them to open a more detailed view of the image. See here for more info: https://lab.lostb.one/nag_extensions/gallery
-- nag_Bash: http://siusoon.net/nag_bash/
+- nag_Bash: [http://siusoon.net/nag_bash/](https://siusoon.net/projects/nag-bash)
 
 The source code of nag_5b is available under GPL (GNU General Public License) 
 
